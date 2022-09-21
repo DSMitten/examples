@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ErrorHandlingTest_ErrorCodes.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorHandlingTest_Exceptions.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="BadExceptionsExample.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="PerfTest.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite\sqlite3.c">
+      <Filter>sqlite</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sqlite3Helpers.h">
+      <Filter>sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorHandlingTest.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="LeagueInfo.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="SqlQueries.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="BadExceptionsExample.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="PerfTest.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite\sqlite3.h">
+      <Filter>sqlite</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="sqlite">
+      <UniqueIdentifier>{604c7216-fe6c-4be0-b781-4edf194878ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests">
+      <UniqueIdentifier>{79b16667-cdf5-454e-8232-69ba0e7671d4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
