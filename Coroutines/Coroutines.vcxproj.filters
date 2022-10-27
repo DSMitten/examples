@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Lesson_1_JustReturn.cpp" />
+    <ClCompile Include="Lesson_2_ReturnValue.cpp" />
+    <ClCompile Include="Lesson_4_SuspendResume.cpp" />
+    <ClCompile Include="Lesson_5_Await.cpp" />
+    <ClCompile Include="Lesson_7_Awaiter.cpp" />
+    <ClCompile Include="Lesson_6_DestroyBeforeFinish.cpp" />
+    <ClCompile Include="Lesson_8_MultipleAwaiters.cpp" />
+    <ClCompile Include="Lesson_9_Awaitable.cpp" />
+    <ClCompile Include="Lesson_3_Throw.cpp" />
+    <ClCompile Include="Lesson_10_AwaitTransform.cpp" />
+    <ClCompile Include="Lesson_11_Pitfall.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Lessons.h" />
+    <ClInclude Include="Helpers.h" />
+  </ItemGroup>
+</Project>

@@ -99,10 +99,6 @@ namespace ErrorHandlingTest::UseExceptions {
         void PlayWeek(sqlite3* db, size_t week, bool insertFailure)
         {
             std::string sql = MakeGetMatchesQuery(week);
-            if (insertFailure)
-            {
-                sql = "Hurr durr";
-            }
 
             Sqlite3Rows rows = ExecuteSql(db, sql);
 

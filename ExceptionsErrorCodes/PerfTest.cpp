@@ -30,13 +30,13 @@ namespace PerfTest {
 
         int CalculateSomething(int existingValue, double failureRate)
         {
-            // existingValue = DoRealWork(existingValue);
+            existingValue = DoRealWork(existingValue);
 
             int randomValue = std::rand();
 
             if (ShouldInjectError(randomValue, failureRate))
             {
-                throw std::runtime_error("Sompin wrong here uhuh");
+                throw std::runtime_error("");
             }
 
             return existingValue + (randomValue % 3);
@@ -70,7 +70,7 @@ namespace PerfTest {
 
         std::optional<int> CalculateSomething(int existingValue, double failureRate)
         {
-            // existingValue = DoRealWork(existingValue);
+            existingValue = DoRealWork(existingValue);
 
             int randomValue = std::rand();
 

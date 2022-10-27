@@ -2,51 +2,60 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ErrorHandlingTest_ErrorCodes.cpp">
-      <Filter>tests</Filter>
-    </ClCompile>
-    <ClCompile Include="ErrorHandlingTest_Exceptions.cpp">
-      <Filter>tests</Filter>
-    </ClCompile>
-    <ClCompile Include="BadExceptionsExample.cpp">
-      <Filter>tests</Filter>
-    </ClCompile>
-    <ClCompile Include="PerfTest.cpp">
-      <Filter>tests</Filter>
-    </ClCompile>
     <ClCompile Include="sqlite\sqlite3.c">
       <Filter>sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="PerfTest.cpp">
+      <Filter>perftest</Filter>
+    </ClCompile>
+    <ClCompile Include="BadExceptionsExample.cpp">
+      <Filter>badexception</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorHandlingTest_ErrorCodes.cpp">
+      <Filter>errorhandlingtest</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorHandlingTest_Exceptions.cpp">
+      <Filter>errorhandlingtest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sqlite3Helpers.h">
       <Filter>sqlite</Filter>
     </ClInclude>
-    <ClInclude Include="ErrorHandlingTest.h">
-      <Filter>tests</Filter>
-    </ClInclude>
-    <ClInclude Include="LeagueInfo.h">
-      <Filter>tests</Filter>
-    </ClInclude>
-    <ClInclude Include="SqlQueries.h">
-      <Filter>tests</Filter>
-    </ClInclude>
-    <ClInclude Include="BadExceptionsExample.h">
-      <Filter>tests</Filter>
-    </ClInclude>
-    <ClInclude Include="PerfTest.h">
-      <Filter>tests</Filter>
-    </ClInclude>
     <ClInclude Include="sqlite\sqlite3.h">
       <Filter>sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="PerfTest.h">
+      <Filter>perftest</Filter>
+    </ClInclude>
+    <ClInclude Include="BadExceptionsExample.h">
+      <Filter>badexception</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorHandlingTest.h">
+      <Filter>errorhandlingtest</Filter>
+    </ClInclude>
+    <ClInclude Include="LeagueInfo.h">
+      <Filter>errorhandlingtest</Filter>
+    </ClInclude>
+    <ClInclude Include="SqlQueries.h">
+      <Filter>errorhandlingtest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="sqlite">
       <UniqueIdentifier>{604c7216-fe6c-4be0-b781-4edf194878ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="tests">
+    <Filter Include="perftest">
       <UniqueIdentifier>{79b16667-cdf5-454e-8232-69ba0e7671d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="badexception">
+      <UniqueIdentifier>{9e596590-fff4-42c7-b148-1e4c346499e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="errorhandlingtest">
+      <UniqueIdentifier>{700e3ac6-c747-4117-b622-0afbfe444b3a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.md" />
   </ItemGroup>
 </Project>
