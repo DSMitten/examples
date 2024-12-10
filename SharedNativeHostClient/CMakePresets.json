@@ -1,0 +1,338 @@
+{
+    "version": 5,
+    "cmakeMinimumRequired":
+    {
+        "major": 3,
+        "minor": 29,
+        "patch": 0
+    },
+    "configurePresets":
+    [
+      {
+        "name": "ninja-base",
+        "hidden": true,
+        "generator": "Ninja",
+        "binaryDir": "${sourceDir}/build/${presetName}",
+        "installDir": "${sourceDir}/build/${presetName}/install",
+        "toolchainFile": "${sourceDir}/dev/make/toolchain.cmake"
+      },
+        {
+            "name": "lnx-x64-base",
+            "inherits": "ninja-base",
+            "hidden": true,
+            "cacheVariables":
+            {
+                "VCPKG_TARGET_TRIPLET":
+                {
+                    "type": "STRING",
+                    "value": "x64-linux"
+                }
+            },
+            "vendor":
+            {
+                "microsoft.com/VisualStudioSettings/CMake/1.0":
+                {
+                    "hostOS": "Linux"
+                }
+            }
+        },
+        {
+            "name": "lnx-x64-debug",
+            "inherits": "lnx-x64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            }
+        },
+        {
+            "name": "lnx-x64-release",
+            "inherits": "lnx-x64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "RelWithDebInfo"
+                }
+            }
+        },
+        {
+            "name": "mac-x64-base",
+            "inherits": "ninja-base",
+            "hidden": true,
+            "cacheVariables":
+            {
+                "VCPKG_TARGET_TRIPLET":
+                {
+                    "type": "STRING",
+                    "value": "x64-osx"
+                }
+            },
+            "vendor":
+            {
+                "microsoft.com/VisualStudioSettings/CMake/1.0":
+                {
+                    "hostOS": "macOS"
+                }
+            }
+        },
+        {
+            "name": "mac-x64-debug",
+            "inherits": "mac-x64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            }
+        },
+        {
+            "name": "mac-x64-release",
+            "inherits": "mac-x64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "RelWithDebInfo"
+                }
+            }
+        },
+        {
+            "name": "mac-arm64-base",
+            "inherits": "ninja-base",
+            "hidden": true,
+            "cacheVariables":
+            {
+                "VCPKG_TARGET_TRIPLET":
+                {
+                    "type": "STRING",
+                    "value": "arm64-osx"
+                }
+            },
+            "vendor":
+            {
+                "microsoft.com/VisualStudioSettings/CMake/1.0":
+                {
+                    "hostOS": "macOS"
+                }
+            }
+        },
+        {
+            "name": "mac-arm64-debug",
+            "inherits": "mac-arm64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            }
+        },
+        {
+            "name": "mac-arm64-release",
+            "inherits": "mac-arm64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "RelWithDebInfo"
+                }
+            }
+        },
+        {
+            "name": "win-arm64-base",
+            "inherits": "ninja-base",
+            "hidden": true,
+            "architecture":
+            {
+                "value": "arm64",
+                "strategy": "external"
+            },
+            "vendor":
+            {
+                "microsoft.com/VisualStudioSettings/CMake/1.0":
+                {
+                    "hostOS": "Windows",
+                    "intelliSenseMode": "windows-msvc-arm64"
+                }
+            }
+        },
+        {
+            "name": "win-arm64-debug",
+            "inherits": "win-arm64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            }
+        },
+        {
+            "name": "win-arm64-release",
+            "inherits": "win-arm64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "RelWithDebInfo"
+                }
+            }
+        },
+        {
+            "name": "win-x64-base",
+            "inherits": "ninja-base",
+            "hidden": true,
+            "architecture":
+            {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables":
+            {
+                "VCPKG_TARGET_TRIPLET":
+                {
+                    "type": "STRING",
+                    "value": "x64-windows"
+                }
+            },
+            "vendor":
+            {
+                "microsoft.com/VisualStudioSettings/CMake/1.0":
+                {
+                    "hostOS": "Windows",
+                    "intelliSenseMode": "windows-msvc-x64"
+                }
+            }
+        },
+        {
+            "name": "win-x64-debug",
+            "inherits": "win-x64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            }
+        },
+        {
+            "name": "win-x64-release",
+            "inherits": "win-x64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "RelWithDebInfo"
+                }
+            }
+        },
+        {
+            "name": "win-x86-base",
+            "inherits": "ninja-base",
+            "hidden": true,
+            "architecture":
+            {
+                "value": "x86",
+                "strategy": "external"
+            },
+            "vendor":
+            {
+                "microsoft.com/VisualStudioSettings/CMake/1.0":
+                {
+                    "hostOS": "Windows",
+                    "intelliSenseMode": "windows-msvc-x86"
+                }
+            }
+        },
+        {
+            "name": "win-x86-debug",
+            "inherits": "win-x86-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            }
+        },
+        {
+            "name": "win-x86-release",
+            "inherits": "win-x86-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "RelWithDebInfo"
+                }
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "lnx-x64-debug",
+            "configurePreset": "lnx-x64-debug",
+            "targets": "all"
+        },
+        {
+            "name": "lnx-x64-release",
+            "configurePreset": "lnx-x64-release",
+            "targets": "all"
+        },
+        {
+            "name": "mac-x64-debug",
+            "configurePreset": "mac-x64-debug",
+            "targets": "all"
+        },
+        {
+            "name": "mac-x64-release",
+            "configurePreset": "mac-x64-release",
+            "targets": "all"
+        },
+        {
+            "name": "win-arm64-debug",
+            "configurePreset": "win-arm64-debug",
+            "targets": "all"
+        },
+        {
+            "name": "win-arm64-release",
+            "configurePreset": "win-arm64-release",
+            "targets": "all"
+        },
+        {
+            "name": "win-x64-debug",
+            "configurePreset": "win-x64-debug",
+            "targets": "all"
+        },
+        {
+            "name": "win-x64-release",
+            "configurePreset": "win-x64-release",
+            "targets": "all"
+        },
+        {
+            "name": "win-x86-debug",
+            "configurePreset": "win-x86-debug",
+            "targets": "all"
+        },
+        {
+            "name": "win-x86-release",
+            "configurePreset": "win-x86-release",
+            "targets": "all"
+        }
+    ]
+}

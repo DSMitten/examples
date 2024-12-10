@@ -1,0 +1,4 @@
+/build/
+/external/nuget/
+/external/vcpkg/
+/.vs/
