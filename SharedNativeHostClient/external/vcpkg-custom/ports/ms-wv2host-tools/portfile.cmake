@@ -31,12 +31,14 @@ set(SHARE_DIR ${CURRENT_PACKAGES_DIR}/share/${PORT})
 
 # Tools binaries
 set(INTEROPGEN_EXE_BIN ${BIN_DIR}/interopgen${VCPKG_HOST_EXECUTABLE_SUFFIX})
+set(LOGEVENTSGEN_EXE_BIN ${BIN_DIR}/logeventsgen${VCPKG_HOST_EXECUTABLE_SUFFIX})
 set(BUILDTOOLS_DLL_BIN ${BIN_DIR}/${VCPKG_TARGET_SHARED_LIBRARY_PREFIX}buildtools${VCPKG_TARGET_SHARED_LIBRARY_SUFFIX})
 set(YAMLCPP_DLL_BIN ${CURRENT_INSTALLED_DIR}/bin/${VCPKG_TARGET_SHARED_LIBRARY_PREFIX}yaml-cpp${VCPKG_TARGET_SHARED_LIBRARY_SUFFIX})
 
 
 # Executable goes into tools directory
 file(COPY ${INTEROPGEN_EXE_BIN} DESTINATION ${TOOLS_DIR})
+file(COPY ${LOGEVENTSGEN_EXE_BIN} DESTINATION ${TOOLS_DIR})
 
 # Build tools library goes into tools directory on Windows & Linux, but lib directory on Mac
 # vcpkg stamps the Mac executable's RPATH variable to go to the lib directory
@@ -57,8 +59,13 @@ endif()
 # They were just there to support build tool exes and were copied into the tools dir
 file(REMOVE_RECURSE "${BIN_DIR}")
 
-# interopgen cmake helper file
+# cmake helper files
 file(COPY ${SOURCE_PATH}/share/generateInterop.cmake DESTINATION ${SHARE_DIR})
+file(COPY ${SOURCE_PATH}/share/generateLogEvents.cmake DESTINATION ${SHARE_DIR})
+
+# base logevents json files
+file(COPY ${REPO_ROOT_PATH}/dev/src/nh/runtime/logging/api/nh-logging-api-logevents.json DESTINATION ${SHARE_DIR})
+file(COPY ${REPO_ROOT_PATH}/dev/src/nh/runtime/telemetry/api/nh-telemetry-api-logevents.json DESTINATION ${SHARE_DIR})
 
 # Schema files
 file(COPY ${REPO_ROOT_PATH}/dev/tools/schemas/nhapi/nhapi.schema.json DESTINATION ${SHARE_DIR})

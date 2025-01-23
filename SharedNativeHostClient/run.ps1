@@ -1,7 +1,4 @@
-# This script is to make development of build tools easier by building them using cmake presets
-# from the command-line separately from the webview2-host-framework build. This script is not
-# intended to be used in during normal builds, as the build tools are normally built using vcpkg
-
+# This script wraps cmake commands to make them easier to run
 [CmdletBinding()]
 param(
     [string] $Config,
@@ -57,7 +54,7 @@ try{
     # Generate
     # -----------------------------------------------------------------------------
     if ($Generate) {
-        Write-Host "Generating makefiles for the native build tools"
+        Write-Host "Generating makefiles for the project"
 
         $logPath = Join-Path $buildPresetPath '_generate.log'
         if (-not [System.IO.Directory]::Exists($buildPresetPath)) {
@@ -80,7 +77,7 @@ try{
     # Build
     # -----------------------------------------------------------------------------
     if ($Build) {
-        Write-Host "Building the native build tools"
+        Write-Host "Building the project"
         $buildLogPath = Join-Path $buildPresetPath '_build.log'
         Write-Host "cmake --build --preset $preset | Tee-Object -FilePath $buildLogPath"
         cmake --build --preset $preset | Tee-Object -FilePath $buildLogPath
@@ -89,7 +86,7 @@ try{
             return -1;
         }
 
-        Write-Host "Installing the native build tools"
+        Write-Host "Installing the project"
         $installLogPath = Join-Path $buildPresetPath '_install.log'
         Write-Host "cmake --install $buildPresetPath | Tee-Object -FilePath $installLogPath"
         cmake --install $buildPresetPath | Tee-Object -FilePath $installLogPath

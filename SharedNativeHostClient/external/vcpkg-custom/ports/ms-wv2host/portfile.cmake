@@ -37,7 +37,9 @@ endif()
 
 # WV2 is not public for mac, and must be manually installed on mac
 if(VCPKG_TARGET_IS_OSX)
-    set(CUSTOM_WV2_FRAMEWORK_DIR_OPTION "-DCUSTOM_WV2_FRAMEWORK_DIR=${CMAKE_CURRENT_LIST_FILE}/../../../nuget/MSWebView2")
+    set(CUSTOM_WV2_FRAMEWORK_DIR "${CMAKE_CURRENT_LIST_FILE}/../../../../nuget/MSWebView2")
+    cmake_path(NORMAL_PATH CUSTOM_WV2_FRAMEWORK_DIR)
+    set(CUSTOM_WV2_FRAMEWORK_DIR_OPTION "-DCUSTOM_WV2_FRAMEWORK_DIR=${CUSTOM_WV2_FRAMEWORK_DIR}")
 endif()
 
 # Make sure that the ms-wv2host port uses the client-native-host VCPKG_INSTALLED_DIR
