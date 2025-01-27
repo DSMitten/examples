@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.29)
 
-include(${CMAKE_CURRENT_LIST_DIR}/dev/make/platform.cmake)
-include(${CMAKE_CURRENT_LIST_DIR}/dev/make/compiler_environment.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/dev/make/Platform.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/dev/make/CompilerEnvironment.cmake)
 
 project(ExampleNativeHostClient LANGUAGES CXX)
 
