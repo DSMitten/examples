@@ -137,10 +137,18 @@ function EnsureWebView2SdkMac {
         $appZipPath = Join-Path $tempPath $arch 'MicrosoftEdgeWebView2App.zip'
         $frameworkZipPath = Join-Path $tempPath $arch 'MicrosoftWebView2Framework.zip'
 
+        # Note: We call unzip command instead of Expand-Archive because Expand-Archive won't convert text files to symlinks
         Write-Host "Expanding $appZipPath to $webView2AppDir"
-        Expand-Archive -Path $appZipPath -DestinationPath $webView2AppDir -ErrorAction Stop
+        unzip -q $appZipPath -d $webView2SdkDir
+        if (0 -ne $LastExitCode) {
+            throw "Failed to expand $appZipPath to $webView2AppDir"
+        }
+
         Write-Host "Expanding $frameworkZipPath to $webView2FrameworkDir"
-        Expand-Archive -Path $frameworkZipPath -DestinationPath $webView2FrameworkDir -ErrorAction Stop
+        unzip -q $frameworkZipPath -d $webView2SdkDir
+        if (0 -ne $LastExitCode) {
+            throw "Failed to expand $frameworkZipPath to $webView2FrameworkDir"
+        }
     }
 }
 
