@@ -1,9 +1,23 @@
 cmake_minimum_required(VERSION 3.29)
 
-include(${CMAKE_CURRENT_LIST_DIR}/dev/make/Platform.cmake)
-include(${CMAKE_CURRENT_LIST_DIR}/dev/make/CompilerEnvironment.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/dev/make/Platform.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/dev/make/CompilerEnvironment.cmake)
 
-project(ExampleNativeHostClient LANGUAGES CXX)
+project(ExampleNativeHostClient LANGUAGES C CXX)
+
+# For MacOS, enable Objective-C
+if (PLATFORM_MAC)
+    include(CheckLanguage)
+    check_language(OBJC)
+    if(CMAKE_OBJC_COMPILER)
+        enable_language(OBJC)
+    endif()
+
+    check_language(OBJCXX)
+    if(CMAKE_OBJCXX_COMPILER)
+        enable_language(OBJCXX)
+    endif()
+endif()
 
 # Use C++20 language standard
 set(CMAKE_CXX_STANDARD 20)
@@ -48,8 +62,8 @@ set(VCPKG_LIB_DIR ${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/${DEBUG_DIR}lib
 set(VCPKG_BIN_DIR ${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/${DEBUG_DIR}bin)
 
 # Find packages used by the project
-find_package(WebView2 REQUIRED)
-find_package(SharedNativeHost REQUIRED)
+#find_package(WebView2 REQUIRED)
+#find_package(SharedNativeHost REQUIRED)
 
 # Specify the install directory.
 set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install CACHE PATH "Install directory")
@@ -78,18 +92,18 @@ if (PLATFORM_WIN)
     )
 endif()
 
-add_subdirectory(dev)
+#add_subdirectory(dev)
 
 
 # Application
-install(TARGETS SharedNativeHostClient DESTINATION bin)
+#install(TARGETS SharedNativeHostClient DESTINATION bin)
 
 # Shared native host 
-install(FILES ${SHARED_NATIVE_HOST_INSTALL_BIN_FILES} DESTINATION bin)
+#install(FILES ${SHARED_NATIVE_HOST_INSTALL_BIN_FILES} DESTINATION bin)
 
 # WebView2 loader
-install(FILES ${WEBVIEW2_INSTALL_FILES} DESTINATION bin)
+#install(FILES ${WEBVIEW2_INSTALL_FILES} DESTINATION bin)
 
 # zlib & minizip
-install(FILES ${VCPKG_BIN_DIR}/zlib${D_SUFFIX}1.dll DESTINATION bin COMPONENT application)
-install(FILES ${VCPKG_BIN_DIR}/minizip.dll DESTINATION bin COMPONENT application)
+#install(FILES ${VCPKG_BIN_DIR}/zlib${D_SUFFIX}1.dll DESTINATION bin COMPONENT application)
+#install(FILES ${VCPKG_BIN_DIR}/minizip.dll DESTINATION bin COMPONENT application)

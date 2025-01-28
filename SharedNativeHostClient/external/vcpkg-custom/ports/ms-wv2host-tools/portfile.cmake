@@ -2,6 +2,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/getSources.cmake)
 
 set(VCPKG_POLICY_EMPTY_INCLUDE_FOLDER enabled)
 set(VCPKG_POLICY_DLLS_WITHOUT_LIBS enabled)
+set(VCPKG_POLICY_MISMATCHED_NUMBER_OF_BINARIES enabled)
 
 # Only need release build of tools
 set(VCPKG_BUILD_TYPE "release")
