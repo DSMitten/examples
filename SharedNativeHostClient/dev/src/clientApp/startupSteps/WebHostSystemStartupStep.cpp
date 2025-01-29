@@ -42,7 +42,6 @@ using namespace Microsoft::NativeHost::WindowManagement;
     );
 }
 
-// Sets up early platform initialization steps
 [[nodiscard]] std::string_view WebHostSystemStartupStep::GetName() const
 {
     return c_Name;
