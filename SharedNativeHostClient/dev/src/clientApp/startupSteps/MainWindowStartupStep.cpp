@@ -4,7 +4,7 @@
 // Local headers
 #include "CommonMain.h"
 #include "WebHostSystemStartupStep.h"
-#include "startup/StartupShutdown.h"
+#include "StartupShutdown.h"
 
 // vcpkg headers
 #include <nativehost/nh-webHost-api/WebHostManager.h>

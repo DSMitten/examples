@@ -9,7 +9,7 @@
 if ("${VCPKG_CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
     # The repo builds with -fvisibility=hidden and -fvisibility-inlines-hidden.
     # Vcpkg packages need to build with the same settings, to prevent runtime errors due to inconsisent visibility
-    set(VCPKG_CMAKE_CONFIGURE_OPTIONS -DCMAKE_CXX_VISIBILITY_PRESET=hidden -DCMAKE_VISIBILITY_INLINES_HIDDEN=TRUE)
+    set(VCPKG_CMAKE_CONFIGURE_OPTIONS -DCMAKE_CXX_VISIBILITY_PRESET=hidden -DCMAKE_OBJCXX_VISIBILITY_PRESET=hidden -DCMAKE_VISIBILITY_INLINES_HIDDEN=TRUE)
 elseif("${VCPKG_CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
     # Allow shared libraries to be relocated by adding $ORIGIN to the RPATH
     set(VCPKG_FIXUP_ELF_RPATH TRUE)

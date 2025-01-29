@@ -64,7 +64,7 @@ function(setup_shared_native_host_framework_targets)
     set(SHARED_NATIVE_HOST_INSTALL_BIN_FILES ${SHARED_NATIVE_HOST_INSTALL_BIN_FILES} PARENT_SCOPE)
     set(SHARED_NATIVE_HOST_INSTALL_SYMBOL_FILES ${SHARED_NATIVE_HOST_INSTALL_SYMBOL_FILES} PARENT_SCOPE)
 
-    message(VERBOSE "Found Native Host")
+    message(VERBOSE "SharedNativeHost FOUND")
     set(SharedNativeHost_FOUND TRUE PARENT_SCOPE) 
 endfunction()
 

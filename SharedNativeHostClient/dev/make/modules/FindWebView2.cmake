@@ -130,14 +130,10 @@ function(setup_webview2_targets)
     elseif(PLATFORM_MAC)
         # Mac WV2 SDK requires manual install. Default location is in the 'external/nuget' directory
         # but CUSTOM_WV2_FRAMEWORK_DIR can be set to override this directory
-        if(DEFINED CUSTOM_WV2_FRAMEWORK_DIR)
-            set(framework_dir ${CUSTOM_WV2_FRAMEWORK_DIR})
-        else()
-            set(framework_dir ${nuget_dir}/MSWebView2)
-        endif()
+        set(framework_dir ${CMAKE_CURRENT_LIST_DIR}/../../../external/nuget/MSWebView2)
+        cmake_path(NORMAL_PATH framework_dir)
 
         if (IS_DIRECTORY ${framework_dir})
-            message(VERBOSE "wv2 framework found")
             setup_webview2_mac_framework(${framework_dir})
             set(WEBVIEW2_APP_PATH "${framework_dir}/Microsoft Edge WebView2.app" PARENT_SCOPE)
             list(APPEND CMAKE_INSTALL_RPATH "${framework_dir}")
@@ -162,7 +158,9 @@ function(setup_webview2_targets)
     # Re-export set vars in parent scope
     set(WEBVIEW2_INSTALL_FILES ${WEBVIEW2_INSTALL_FILES} PARENT_SCOPE)
 
-    message(VERBOSE "WebView2 FOUND")
+    if (${was_found})
+        message(VERBOSE "WebView2 FOUND")
+    endif()
     set(WebView2_FOUND ${was_found} PARENT_SCOPE)
 
 endfunction()

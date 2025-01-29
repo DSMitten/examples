@@ -2,9 +2,10 @@
 #include "WebHostSystemStartupStep.h"
 
 // Local headers
-#include "CommonMain.h"
+#include "../AppDirectories.h"
+#include "../CommonMain.h"
 #include "ServicesRegistrarStartupStep.h"
-#include "startup/StartupShutdown.h"
+#include "StartupShutdown.h"
 
 // vcpkg headers
 #include <nativehost/misc-filesystem-api/PlatformPaths.h>
@@ -22,7 +23,7 @@ using namespace Microsoft::NativeHost::WindowManagement;
 
 [[nodiscard]] std::unique_ptr<WebHostSystemStartupOptions> GetStartupOptions()
 {
-    const std::filesystem::path userDataDir = GetUserDataBaseDirectoryPath() / xstring{ c_AppName };
+    const std::filesystem::path userDataDir = GetAppUserDataDirectoryPath();
 
 #if defined(PLATFORM_WIN)
     const xstring userDataDirString = userDataDir.wstring();

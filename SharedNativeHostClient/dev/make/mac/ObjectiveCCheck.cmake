@@ -1,0 +1,12 @@
+if (PLATFORM_MAC)
+    include(CheckLanguage)
+    check_language(OBJC)
+    if(CMAKE_OBJC_COMPILER)
+        enable_language(OBJC)
+    endif()
+
+    check_language(OBJCXX)
+    if(CMAKE_OBJCXX_COMPILER)
+        enable_language(OBJCXX)
+    endif()
+endif()

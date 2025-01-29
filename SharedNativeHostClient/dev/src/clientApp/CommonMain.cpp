@@ -2,13 +2,13 @@
 #include "CommonMain.h"
 
 // Local headers
-#include "startup/LoggingStartup.h"
-#include "startup/PlatformStartupStep.h"
-#include "startup/ServicesRegistrarStartupStep.h"
-#include "startup/StartupShutdown.h"
-#include "startup/TasksSystemStartupStep.h"
-#include "startup/WebHostSystemStartupStep.h"
-#include "startup/MainWindowStartupStep.h"
+#include "startupSteps/LoggingStartup.h"
+#include "startupSteps/PlatformStartupStep.h"
+#include "startupSteps/ServicesRegistrarStartupStep.h"
+#include "startupSteps/StartupShutdown.h"
+#include "startupSteps/TasksSystemStartupStep.h"
+#include "startupSteps/WebHostSystemStartupStep.h"
+#include "startupSteps/MainWindowStartupStep.h"
 
 // Vcpkg headers
 #include <nativehost/misc-errors-api/Errors.h>
