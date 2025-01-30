@@ -13,7 +13,6 @@
 using namespace Microsoft::NativeHost;
 using namespace Microsoft::NativeHost::Startup;
 
-// Sets up early platform initialization steps
 [[nodiscard]] std::string_view TasksSystemStartupStep::GetName() const
 {
     return c_Name;

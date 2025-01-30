@@ -21,7 +21,31 @@ using namespace Microsoft::NativeHost;
 using namespace Microsoft::NativeHost::Startup;
 using namespace Microsoft::NativeHost::WindowManagement;
 
+<<<<<<< HEAD
 // Sets up early platform initialization steps
+=======
+[[nodiscard]] std::unique_ptr<WebHostSystemStartupOptions> GetStartupOptions()
+{
+    const std::filesystem::path userDataDir = GetAppUserDataDirectoryPath();
+
+#if defined(PLATFORM_WIN)
+    const xstring userDataDirString = userDataDir.wstring();
+    const std::optional<zxstring_view> browserExecutableFolder = std::nullopt;
+#elif defined(PLATFORM_MAC)
+    const xstring userDataDirString = userDataDir.string();
+    const std::optional<zxstring_view> browserExecutableFolder = WEBVIEW2_APP_PATH;
+#endif
+
+    return std::make_unique<WebHostSystemStartupOptions>(
+        c_AppName,                                // appName
+        userDataDirString,                        // userDataFolder
+        browserExecutableFolder,                  // browserExecutableFolder
+        std::nullopt,                             // iconResourceId
+        Interop::GetTasksLibraryThreadingConfig() // spThreadingConfig
+    );
+}
+
+>>>>>>> 661b148580423ddfdc76ceb475efa724569be2a5
 [[nodiscard]] std::string_view WebHostSystemStartupStep::GetName() const
 {
     return c_Name;

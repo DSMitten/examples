@@ -8,7 +8,6 @@ using namespace Microsoft::NativeHost::Startup;
 void PlatformInitialize();
 void PlatformShutdown();
 
-// Sets up early platform initialization steps
 [[nodiscard]] std::string_view PlatformStartupStep::GetName() const
 {
     return c_Name;
