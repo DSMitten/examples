@@ -183,7 +183,7 @@ function (set_msvc_environment_variables_from_vsdevcmd vs_install_path target_ar
     endforeach()
 
     # Write environment variables to cache file
-    message(STATUS "vsdevcmd_cache_json: ${vsdevcmd_cache_json}")
+    #message(STATUS "vsdevcmd_cache_json: ${vsdevcmd_cache_json}")
     get_msvc_environment_variables_cache_path(${target_arch} vsdevcmd_cache_json_path)
     message(STATUS "vsdevcmd_cache_json_path: ${vsdevcmd_cache_json_path}")
     file(WRITE ${vsdevcmd_cache_json_path} "${vsdevcmd_cache_json}")

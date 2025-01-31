@@ -1,0 +1,42 @@
+{
+    "references": [
+      "nh-logging-api",
+      "nh-telemetry-api"
+    ],
+    "typeDefinitionSets": [
+      {
+        "namespace": "Microsoft::NativeHost",
+        "topics": {
+          "ClientApp": "{B81E8F7B-F068-4CFE-B74E-1454542D88C6}"
+        },
+        "parameters": {
+          "exitCode": {
+            "type": "int32",
+            "properties": {
+              "isTelemetry": false
+            }
+          }
+        },
+        "topicEvents": [
+          {
+            "topic": "ClientApp",
+            "events": {
+              "applicationStart": {
+                "id": 1,
+                "text": "Application starting",
+                "logLevel": "default"
+              },
+              "applicationExit": {
+                "id": 2,
+                "text": "Application exiting",
+                "logLevel": "default",
+                "parameters": [
+                  "exitCode"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }

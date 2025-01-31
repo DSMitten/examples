@@ -152,21 +152,14 @@ function EnsureWebView2SdkMac {
     }
 }
 
-function EnsureWebView2Sdk {
-    if ($IsWindows) {
-        # install with nuget 
-    } elseif ($IsMacOS) {
-        EnsureWebView2SdkMac
-    }
-}
-
 # -----------------------------------------------------------------------------
 # Check execution
 # -----------------------------------------------------------------------------
 EnsureVcpkg
 
 if ($IsMacOS) {
+    # Note: On Windows, the cmake script will use nuget to get the webview2 package
+    # On MacOS, we have to do this using Azure CLI - it isn't part of the build
     EnsureAzureCli
+    EnsureWebView2SdkMac
 }
-
-EnsureWebView2Sdk

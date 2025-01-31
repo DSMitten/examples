@@ -80,7 +80,7 @@ try{
         Write-Host "Building the project"
         $buildLogPath = Join-Path $buildPresetPath '_build.log'
         Write-Host "cmake --build --preset $preset | Tee-Object -FilePath $buildLogPath"
-        cmake --build --preset $preset | Tee-Object -FilePath $buildLogPath
+        cmake --build --preset $preset 2>&1 | Tee-Object -FilePath $buildLogPath
         if ($LastExitCode -ne 0) {
             Write-Host "Build failed - log file is at $buildLogPath" -ForegroundColor Red
             return -1;
@@ -89,7 +89,7 @@ try{
         Write-Host "Installing the project"
         $installLogPath = Join-Path $buildPresetPath '_install.log'
         Write-Host "cmake --install $buildPresetPath | Tee-Object -FilePath $installLogPath"
-        cmake --install $buildPresetPath | Tee-Object -FilePath $installLogPath
+        cmake --install $buildPresetPath 2>&1 | Tee-Object -FilePath $installLogPath
         if ($LastExitCode -ne 0) {
             Write-Host "Install failed - log file is at $installLogPath" -ForegroundColor Red
             return -1;

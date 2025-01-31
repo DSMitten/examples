@@ -14,7 +14,7 @@
         "generator": "Ninja",
         "binaryDir": "${sourceDir}/build/${presetName}",
         "installDir": "${sourceDir}/build/${presetName}/install",
-        "toolchainFile": "${sourceDir}/dev/make/toolchain.cmake"
+        "toolchainFile": "${sourceDir}/dev/make/Toolchain.cmake"
       },
         {
             "name": "lnx-x64-base",

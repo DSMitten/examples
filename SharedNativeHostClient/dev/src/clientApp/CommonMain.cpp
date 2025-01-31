@@ -10,6 +10,10 @@
 #include "startupSteps/WebHostSystemStartupStep.h"
 #include "startupSteps/MainWindowStartupStep.h"
 
+// Repo headers
+#include <nativehost/logEvents/ClientApp-logevents.h>
+#include <nativehost/nh-logging-api/Logging.h>
+
 // Vcpkg headers
 #include <nativehost/misc-errors-api/Errors.h>
 #include <nativehost/misc-eventLoop-api/EventLoop.h>
@@ -32,6 +36,7 @@ int CommonMain()
         []() -> void
         {
             InitializeLogging();
+            Log(ApplicationStart());
             std::set_terminate(CustomTerminateHandler);
 
             AddStartupStep<PlatformStartupStep>();
@@ -49,5 +54,7 @@ int CommonMain()
         return result;
     }
 
-    return GetShutdownExitCode();
+    int exitCode = GetShutdownExitCode();
+    Log(ApplicationExit(exitCode));
+    return exitCode;
 }

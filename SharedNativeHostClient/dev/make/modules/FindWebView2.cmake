@@ -26,7 +26,7 @@ function(ensure_nuget_package package_name package_version package_source dir_va
 	if (IS_DIRECTORY ${package_dir})
 		message(VERBOSE "${package_name} version ${package_version} exists.")
 	else()
-        message(COMMAND "${NUGET} install ${package_name} -Version ${package_version} -Source ${package_source} -OutputDirectory ${nuget_dir} -Verbosity Quiet")
+        message(VERBOSE "${NUGET} install ${package_name} -Version ${package_version} -Source ${package_source} -OutputDirectory ${nuget_dir} -Verbosity Quiet")
 		execute_process(
 			COMMAND ${NUGET} install ${package_name} -Version ${package_version} -Source ${package_source} -OutputDirectory ${nuget_dir} -Verbosity Quiet
 			RESULT_VARIABLE nuget_result
@@ -120,7 +120,7 @@ function(setup_webview2_targets)
     # More information - https://docs.microsoft.com/en-us/microsoft-edge/webview2/concepts/versioning
     if(PLATFORM_WIN)
 
-        ensure_nuget_package("Microsoft.Web.WebView2" "1.0.2646-prerelease" "https://api.nuget.org/v3/index.json" module_dir)
+        ensure_nuget_package("Microsoft.Web.WebView2" "1.0.2957.106" "https://api.nuget.org/v3/index.json" module_dir)
         set(module_dir ${module_dir}/build/native)
         setup_webview2_win_headers_target(${module_dir})
         set(WEBVIEW2_INCLUDE_DIR ${WEBVIEW2_INCLUDE_DIR} PARENT_SCOPE)

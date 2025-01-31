@@ -57,3 +57,5 @@ elseif (PLATFORM_MAC)
     # RPATH for a bundle should look in the bundle's Frameworks directory
     set_property(TARGET ${TARGET_NAME} APPEND PROPERTY INSTALL_RPATH "@executable_path/../Frameworks")
 endif()
+
+add_generate_log_events(${TARGET_NAME})
