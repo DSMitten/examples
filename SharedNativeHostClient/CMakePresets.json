@@ -295,6 +295,16 @@
             "targets": "all"
         },
         {
+            "name": "mac-arm64-debug",
+            "configurePreset": "mac-arm64-debug",
+            "targets": "all"
+        },
+        {
+            "name": "mac-arm64-release",
+            "configurePreset": "mac-arm64-release",
+            "targets": "all"
+        },
+        {
             "name": "mac-x64-debug",
             "configurePreset": "mac-x64-debug",
             "targets": "all"
