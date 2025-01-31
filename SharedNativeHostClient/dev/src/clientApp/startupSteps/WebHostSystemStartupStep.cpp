@@ -9,6 +9,7 @@
 
 // vcpkg headers
 #include <nativehost/misc-filesystem-api/PlatformPaths.h>
+#include <nativehost/misc-process-api/Process.h>
 #include <nativehost/misc-window-api/Windowing.h>
 #include <nativehost/nh-webHost-api/WebHostManager.h>
 #include <nativehost/nh-webHost-api/WebHostSystem.h>
@@ -51,7 +52,7 @@ using namespace Microsoft::NativeHost::WindowManagement;
         const std::optional<zxstring_view> browserExecutableFolder = std::nullopt;
     #elif defined(PLATFORM_MAC)
         const xstring userDataDirString = userDataDir.string();
-        const std::optional<zxstring_view> browserExecutableFolder = WEBVIEW2_APP_PATH;
+        const xstring browserExecutableFolder = (GetCurrentProcessExeDirectoryPath().parent_path() / "Helpers" / WEBVIEW2_APP_NAME).string();
     #endif
 
     std::unique_ptr<WebHostSystemStartupOptions> spWebHostSystemStartupOptions = std::make_unique<WebHostSystemStartupOptions>(
@@ -80,6 +81,7 @@ using namespace Microsoft::NativeHost::WindowManagement;
 
 [[nodiscard]] Future<void> WebHostSystemStartupStep::Stop()
 {
+    ShutdownWebHostSystem();
     ShutdownWebHostSystem();
     return MakePresetFuture();
 }

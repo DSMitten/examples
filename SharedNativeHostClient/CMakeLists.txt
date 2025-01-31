@@ -12,7 +12,4 @@ include(${CMAKE_CURRENT_LIST_DIR}/dev/make/BuildSettings.cmake)
 # Find external dependencies
 include(${CMAKE_CURRENT_LIST_DIR}/dev/make/External.cmake)
 
-# Add helper functions to use in CMakeLists.txt files
-include(${CMAKE_CURRENT_LIST_DIR}/dev/make/HelperFunctions.cmake)
-
 add_subdirectory(dev)

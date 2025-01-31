@@ -52,7 +52,7 @@ elseif (PLATFORM_MAC)
             MacOS::Foundation
     )
 
-    target_path_compile_definition(${TARGET_NAME} "${WEBVIEW2_APP_PATH}" WEBVIEW2_APP_PATH)
+    target_compile_definitions(${TARGET_NAME} PRIVATE WEBVIEW2_APP_NAME=\"${WEBVIEW2_APP_NAME}\")
 
     # RPATH for a bundle should look in the bundle's Frameworks directory
     set_property(TARGET ${TARGET_NAME} APPEND PROPERTY INSTALL_RPATH "@executable_path/../Frameworks")
