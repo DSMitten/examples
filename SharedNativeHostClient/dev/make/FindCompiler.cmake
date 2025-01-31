@@ -5,6 +5,7 @@ set(CLANG_VERSION 18)
 # -----------------------------------------------------------------------------
 function(configure_windows_compiler)
     find_program(CL cl.exe REQUIRED)
+    set(CMAKE_C_COMPILER "${CL}" PARENT_SCOPE)
     set(CMAKE_CXX_COMPILER "${CL}" PARENT_SCOPE)
 endfunction()
 
@@ -56,8 +57,9 @@ endfunction()
 # Configures cmake to build with LLVM clang
 # -----------------------------------------------------------------------------
 function(configure_linux_compiler)
-    read_clang_version(llvm_version)
-    find_program(CLANGXX clang++-18 REQUIRED)
+    find_program(CLANG "clang-${CLANG_VERSION}" REQUIRED)
+    find_program(CLANGXX "clang++-${CLANG_VERSION}" REQUIRED)
+    set(CMAKE_C_COMPILER "${CLANG}" PARENT_SCOPE)
     set(CMAKE_CXX_COMPILER "${CLANGXX}" PARENT_SCOPE)
 endfunction()
 

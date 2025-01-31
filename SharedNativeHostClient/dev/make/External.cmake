@@ -17,7 +17,10 @@ set(VCPKG_BIN_DIR ${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/${DEBUG_DIR}bin
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/modules;${CMAKE_MODULE_PATH})
 
 # Find packages used by the project
-find_package(WebView2 REQUIRED)
+if (PLATFORM_WIN OR PLATFORM_MAC)
+    find_package(WebView2 REQUIRED)
+endif()
+
 find_package(SharedNativeHost REQUIRED)
 
 # Add logevents generation functions

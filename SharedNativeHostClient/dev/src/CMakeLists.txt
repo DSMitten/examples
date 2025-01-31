@@ -1,3 +1,5 @@
 # Application executable (consider renaming to application name)
-add_subdirectory(clientApp)
-add_subdirectory(install)
+if (WebView2_FOUND)
+    add_subdirectory(clientApp)
+    add_subdirectory(install)
+endif()
