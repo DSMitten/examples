@@ -54,15 +54,44 @@ function(setup_shared_library_target)
  
 endfunction()
 
+# Finds the share directory for ms-wv2host-tools
+function(get_shared_files_dir)
+    if (PLATFORM_WIN)
+        if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL "AMD64")
+            set(vcpkg_host_triplet "x64-windows")
+        endif()
+    elseif (PLATFORM_MAC)
+        if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL "arm64")
+            set(vcpkg_host_triplet "arm64-osx")
+        elseif (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+            set(vcpkg_host_triplet "x64-osx")
+        endif()
+    elseif (PLATFORM_LINUX)
+        if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL "arm64")
+            set(vcpkg_host_triplet "arm64-linux")
+        elseif (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+            set(vcpkg_host_triplet "x64-linux")
+        endif()
+    endif()
+
+    if (NOT DEFINED vcpkg_host_triplet)
+        message(FATAL_ERROR "Unknown host system processor ${CMAKE_HOST_SYSTEM_PROCESSOR}")
+    endif()
+
+    set(MS_WV2HOST_TOOLS_SHARE_DIR "${VCPKG_INSTALLED_DIR}/${vcpkg_host_triplet}/share/ms-wv2host-tools" PARENT_SCOPE)
+endfunction()
+
 # Ensure shared native host is on the system and sets up the NativeHost::IncludeDirs and NativeHost::SharedLibrary targets
 function(setup_shared_native_host_framework_targets)
     message(VERBOSE "Setting up shared native host targets")
 
     setup_include_target()
     setup_shared_library_target()
+    get_shared_files_dir()
 
     set(SHARED_NATIVE_HOST_INSTALL_BIN_FILES ${SHARED_NATIVE_HOST_INSTALL_BIN_FILES} PARENT_SCOPE)
     set(SHARED_NATIVE_HOST_INSTALL_SYMBOL_FILES ${SHARED_NATIVE_HOST_INSTALL_SYMBOL_FILES} PARENT_SCOPE)
+    set(MS_WV2HOST_TOOLS_SHARE_DIR ${MS_WV2HOST_TOOLS_SHARE_DIR} PARENT_SCOPE)
 
     message(VERBOSE "SharedNativeHost FOUND")
     set(SharedNativeHost_FOUND TRUE PARENT_SCOPE) 

@@ -1,6 +1,6 @@
-# -----------------------------------------------------------------------------
-# Shared vcpkg settings for all triplets
-# -----------------------------------------------------------------------------
+# Shared triplet code
+
+include(${CMAKE_CURRENT_LIST_DIR}/../../../dev/make/Platform.cmake)
 
 # Note - we can't use Platform.cmake to create PLATFORM_ macros because the
 # VCPKG_TARGET_TRIPLET variable is not set for the chainload toolchain file.
