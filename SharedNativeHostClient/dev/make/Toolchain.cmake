@@ -1,7 +1,6 @@
 # The toolchain file is used by cmake to configure compiler paths and other settings
 
 include(${CMAKE_CURRENT_LIST_DIR}/Platform.cmake)
-include(${CMAKE_CURRENT_LIST_DIR}/Processor.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/CompilerEnvironment.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/FindCompiler.cmake)
 

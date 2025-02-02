@@ -4,7 +4,6 @@
 
 # Use the same files to find compiler for vcpkg packages as we use for this repo
 include(${CMAKE_CURRENT_LIST_DIR}/../../../dev/make/Platform.cmake)
-include(${CMAKE_CURRENT_LIST_DIR}/../../../dev/make/Processor.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/../../../dev/make/CompilerEnvironment.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/../../../dev/make/FindCompiler.cmake)
 

@@ -3,7 +3,7 @@
     "cmakeMinimumRequired":
     {
         "major": 3,
-        "minor": 29,
+        "minor": 30,
         "patch": 0
     },
     "configurePresets":
@@ -152,6 +152,14 @@
             "name": "win-arm64-base",
             "inherits": "ninja-base",
             "hidden": true,
+            "cacheVariables":
+            {
+                "VCPKG_TARGET_TRIPLET":
+                {
+                    "type": "STRING",
+                    "value": "arm64-windows"
+                }
+            },
             "architecture":
             {
                 "value": "arm64",
@@ -194,11 +202,6 @@
             "name": "win-x64-base",
             "inherits": "ninja-base",
             "hidden": true,
-            "architecture":
-            {
-                "value": "x64",
-                "strategy": "external"
-            },
             "cacheVariables":
             {
                 "VCPKG_TARGET_TRIPLET":
@@ -206,6 +209,11 @@
                     "type": "STRING",
                     "value": "x64-windows"
                 }
+            },
+            "architecture":
+            {
+                "value": "x64",
+                "strategy": "external"
             },
             "vendor":
             {
@@ -244,6 +252,14 @@
             "name": "win-x86-base",
             "inherits": "ninja-base",
             "hidden": true,
+            "cacheVariables":
+            {
+                "VCPKG_TARGET_TRIPLET":
+                {
+                    "type": "STRING",
+                    "value": "x86-windows"
+                }
+            },
             "architecture":
             {
                 "value": "x86",
