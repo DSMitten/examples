@@ -17,8 +17,3 @@ endif()
 
 # Tell vcpkg to use our custom toolchain file; it will set compiler paths and then include the vcpkg-provided one
 set(VCPKG_CHAINLOAD_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/ChainloadToolchainFile.cmake)
-
-if (WIN32)
-    # Setting VCPKG_CHAINLOAD_TOOLCHAIN_FILE deactivates automatic vcvars setup so reenable it
-    set(VCPKG_LOAD_VCVARS_ENV ON)
-endif()
