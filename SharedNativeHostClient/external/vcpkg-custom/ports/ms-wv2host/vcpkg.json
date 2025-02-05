@@ -4,6 +4,7 @@
     "version-semver": "0.11.0",
     "port-version": 1,
     "dependencies": [
+      "cli11",
       {
         "name": "libuuid",
         "platform": "linux"
