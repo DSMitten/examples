@@ -1,4 +1,6 @@
 
+include(${CMAKE_CURRENT_LIST_DIR}/mac/MacLlvm.cmake)
+
 # Use C++20 language standard
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON) 
@@ -30,6 +32,22 @@ if (PLATFORM_MAC)
     # Enable setting macos rpath
     # Useful reference: https://www.mikeash.com/pyblog/friday-qa-2009-11-06-linking-and-install-names.html
     set(CMAKE_MACOSX_RPATH TRUE)
+
+    get_macos_llvm_lib_dir(llvm_lib_dir)
+    get_macos_llvm_libcpp_dir(llvm_libcpp_dir)
+    link_directories(BEFORE ${llvm_lib_dir} ${llvm_libcpp_dir})
+
+    get_directory_property(link_dirs LINK_DIRECTORIES)
+
+    list(APPEND CMAKE_INSTALL_RPATH "${llvm_lib_dir}")
+    list(APPEND CMAKE_INSTALL_RPATH "${llvm_libcpp_dir}")
+
+    # Link against unwind library, which is necessary for stack traces
+    add_link_options(LINKER:-lunwind)
+
+    # cmake can add libraries multiple times in link commands. It adds direct dependencies and then appends transitive dependencies.
+    # linking on mac produces 'ignoring duplicate library' warnings, which we don't, so suppress it
+    add_link_options(LINKER:-no_warn_duplicate_libraries)
 else()
     # Set shared library RUNPATH to $ORIGIN because our shared libraries will be located next to executables
     # Useful reference: https://nehckl0.medium.com/creating-relocatable-linux-executables-by-setting-rpath-with-origin-45de573a2e98

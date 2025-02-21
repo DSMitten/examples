@@ -82,6 +82,5 @@ using namespace Microsoft::NativeHost::WindowManagement;
 [[nodiscard]] Future<void> WebHostSystemStartupStep::Stop()
 {
     ShutdownWebHostSystem();
-    ShutdownWebHostSystem();
     return MakePresetFuture();
 }

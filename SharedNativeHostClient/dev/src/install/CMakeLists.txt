@@ -20,14 +20,13 @@ elseif (PLATFORM_MAC)
     # Executable
     install(TARGETS ${CLIENT_APP_NAME} BUNDLE DESTINATION bin)
 
-    set(CLIENT_APP_CONTENTS_DIR ${CLIENT_APP_NAME}.app/Contents)
-    set(CLIENT_APP_FRAMEWORKS_DIR ${CLIENT_APP_CONTENTS_DIR}/Frameworks)
+     set(CLIENT_APP_CONTENTS_DIR ${CLIENT_APP_NAME}.app/Contents)
     set(CLIENT_APP_HELPERS_DIR ${CLIENT_APP_CONTENTS_DIR}/Helpers)
 
     # WebView2 framework runtime files
-    install(DIRECTORY ${WEBVIEW2_FRAMEWORK_PATH} DESTINATION bin/${CLIENT_APP_FRAMEWORKS_DIR} PATTERN "Headers" EXCLUDE)
+
+    install(SCRIPT ${CMAKE_CURRENT_LIST_DIR}/FixupBundle.cmake)
 
     # WebView2 browser executable app
     install(DIRECTORY ${WEBVIEW2_APP_PATH} DESTINATION bin/${CLIENT_APP_HELPERS_DIR} USE_SOURCE_PERMISSIONS)
-    
 endif()
