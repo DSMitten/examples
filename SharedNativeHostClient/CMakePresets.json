@@ -3,7 +3,7 @@
     "cmakeMinimumRequired":
     {
         "major": 3,
-        "minor": 29,
+        "minor": 30,
         "patch": 0
     },
     "configurePresets":
@@ -61,50 +61,6 @@
             }
         },
         {
-            "name": "mac-x64-base",
-            "inherits": "ninja-base",
-            "hidden": true,
-            "cacheVariables":
-            {
-                "VCPKG_TARGET_TRIPLET":
-                {
-                    "type": "STRING",
-                    "value": "x64-osx"
-                }
-            },
-            "vendor":
-            {
-                "microsoft.com/VisualStudioSettings/CMake/1.0":
-                {
-                    "hostOS": "macOS"
-                }
-            }
-        },
-        {
-            "name": "mac-x64-debug",
-            "inherits": "mac-x64-base",
-            "cacheVariables":
-            {
-                "CMAKE_BUILD_TYPE":
-                {
-                    "type": "STRING",
-                    "value": "Debug"
-                }
-            }
-        },
-        {
-            "name": "mac-x64-release",
-            "inherits": "mac-x64-base",
-            "cacheVariables":
-            {
-                "CMAKE_BUILD_TYPE":
-                {
-                    "type": "STRING",
-                    "value": "RelWithDebInfo"
-                }
-            }
-        },
-        {
             "name": "mac-arm64-base",
             "inherits": "ninja-base",
             "hidden": true,
@@ -149,9 +105,66 @@
             }
         },
         {
+            "name": "mac-x64-base",
+            "inherits": "ninja-base",
+            "hidden": true,
+            "cacheVariables":
+            {
+                "VCPKG_TARGET_TRIPLET":
+                {
+                    "type": "STRING",
+                    "value": "x64-osx"
+                }
+            },
+            "vendor":
+            {
+                "microsoft.com/VisualStudioSettings/CMake/1.0":
+                {
+                    "hostOS": "macOS"
+                }
+            }
+        },
+        {
+            "name": "mac-x64-debug",
+            "inherits": "mac-x64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            }
+        },
+        {
+            "name": "mac-x64-release",
+            "inherits": "mac-x64-base",
+            "cacheVariables":
+            {
+                "CMAKE_BUILD_TYPE":
+                {
+                    "type": "STRING",
+                    "value": "RelWithDebInfo"
+                }
+            }
+        },
+        {
             "name": "win-arm64-base",
             "inherits": "ninja-base",
             "hidden": true,
+            "cacheVariables":
+            {
+                "VCPKG_HOST_TRIPLET":
+                {
+                    "type": "STRING",
+                    "value": "x64-windows"
+                },
+                "VCPKG_TARGET_TRIPLET":
+                {
+                    "type": "STRING",
+                    "value": "arm64-windows"
+                }
+            },
             "architecture":
             {
                 "value": "arm64",
@@ -194,11 +207,6 @@
             "name": "win-x64-base",
             "inherits": "ninja-base",
             "hidden": true,
-            "architecture":
-            {
-                "value": "x64",
-                "strategy": "external"
-            },
             "cacheVariables":
             {
                 "VCPKG_TARGET_TRIPLET":
@@ -206,6 +214,11 @@
                     "type": "STRING",
                     "value": "x64-windows"
                 }
+            },
+            "architecture":
+            {
+                "value": "x64",
+                "strategy": "external"
             },
             "vendor":
             {
@@ -244,6 +257,19 @@
             "name": "win-x86-base",
             "inherits": "ninja-base",
             "hidden": true,
+            "cacheVariables":
+            {
+                "VCPKG_HOST_TRIPLET":
+                {
+                    "type": "STRING",
+                    "value": "x64-windows"
+                },
+                "VCPKG_TARGET_TRIPLET":
+                {
+                    "type": "STRING",
+                    "value": "x86-windows"
+                }
+            },
             "architecture":
             {
                 "value": "x86",

@@ -29,8 +29,8 @@ set(WV2HOST_LOG_EVENTS_OUTPUT_DIR ${CMAKE_BINARY_DIR}/gen/logEvents)
 set(INTEROP_INCLUDE_DIR           ${CMAKE_BINARY_DIR}/gen/interop/include)
 set(INTEROP_HEADERS_DIR           ${INTEROP_INCLUDE_DIR}/nativehost/interop)
 
-include("${VCPKG_INSTALLED_DIR}/${VCPKG_HOST_TRIPLET}/share/ms-wv2host-tools/generateLogEvents.cmake")
-include("${VCPKG_INSTALLED_DIR}/${VCPKG_HOST_TRIPLET}/share/ms-wv2host-tools/generateInterop.cmake")
+include("${MS_WV2HOST_TOOLS_SHARE_DIR}/generateLogEvents.cmake")
+include("${MS_WV2HOST_TOOLS_SHARE_DIR}/generateInterop.cmake")
 
 # -----------------------------------------------------------------------------
 # Wrapper for target_generate_interop_files, providing settings used by

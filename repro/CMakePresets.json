@@ -1,0 +1,26 @@
+{
+    "version": 5,
+    "cmakeMinimumRequired":
+    {
+        "major": 3,
+        "minor": 30,
+        "patch": 0
+    },
+    "configurePresets":
+    [
+      {
+        "name": "repro",
+        "generator": "Ninja",
+        "binaryDir": "${sourceDir}/build",
+        "installDir": "${sourceDir}/build/install",
+        "toolchainFile": "D:/git/webview2-host-framework/external/vcpkg/scripts/buildsystems/vcpkg.cmake"
+      }
+    ],
+    "buildPresets": [
+        {
+            "name": "repro",
+            "configurePreset": "repro",
+            "targets": "all"
+        }
+    ]
+}

@@ -1,21 +1,27 @@
-# Detects the platform being built on and sets the appropriate variables
+# Copyright (C) Microsoft Corporation. All rights reserved.
 
-# Expects the VCPKG_TARGET_TRIPLET variable to have been set - it should be set when starting cmake
-# The cmake project's processor architecture values are the same as vcpkg values (x64, x86, arm64)
+# The repo uses vpckg for package management, and sets VCPKG_TARGET_TRIPLET in CMakePresets.json
 function (get_processor_arch output_variable)
-    string(REGEX MATCH "^[^-]+" processor ${VCPKG_TARGET_TRIPLET})
+    if (DEFINED VCPKG_TARGET_TRIPLET)
+        string(REGEX MATCH "^[^-]+" processor ${VCPKG_TARGET_TRIPLET})
+        if (NOT DEFINED processor)
+            message(FATAL_ERROR "Could not detect processor architecture from VCPKG_TARGET_TRIPLET: ${VCPKG_TARGET_TRIPLET}")
+        endif()
+    elseif (DEFINED VCPKG_TARGET_ARCHITECTURE)
+        set(processor ${VCPKG_TARGET_ARCHITECTURE})
+    else()
+        message(FATAL_ERROR "Cannot determine target processor architecture as neither VCPKG_TARGET_TRIPLET nor VCPKG_TARGET_ARCHITECTURE are defined")
+    endif()
+
     set(${output_variable} ${processor} PARENT_SCOPE)
 endfunction()
 
+
+# Detects the platform being built on and sets the appropriate variables
 function (set_config_variables)
     # PLATFORM_WIN, PLATFORM_MAC, PLATFORM_LINUX, PLATFORM_POSIX
     if (WIN32)
         set(PLATFORM_WIN TRUE PARENT_SCOPE)
-        if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL "AMD64")
-            set(VCPKG_HOST_TRIPLET "x64-windows" PARENT_SCOPE)
-        else()
-            message(FATAL_ERROR "Unknown or unsupported host system processor: ${CMAKE_HOST_SYSTEM_PROCESSOR}")
-        endif()
     elseif (UNIX)
         execute_process(COMMAND uname RESULT_VARIABLE uname_result OUTPUT_VARIABLE uname_output)
         if (NOT ${uname_result} EQUAL 0)
@@ -27,21 +33,9 @@ function (set_config_variables)
         if ("${uname_output}" STREQUAL "Darwin")
             set(PLATFORM_MAC TRUE PARENT_SCOPE)
             set(PLATFORM_POSIX TRUE PARENT_SCOPE)
-            if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL "arm64")
-                set(VCPKG_HOST_TRIPLET "arm64-osx" PARENT_SCOPE)
-            elseif (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL "x86_64")
-                set(VCPKG_HOST_TRIPLET "x64-osx" PARENT_SCOPE)
-            else()
-                message(FATAL_ERROR "Unknown or unsupported host system processor: ${CMAKE_HOST_SYSTEM_PROCESSOR}")
-            endif()
         elseif("${uname_output}" STREQUAL "Linux")
             set(PLATFORM_LINUX TRUE PARENT_SCOPE)
             set(PLATFORM_POSIX TRUE PARENT_SCOPE)
-            if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL "x86_64")
-                set(VCPKG_HOST_TRIPLET "x64-linux" PARENT_SCOPE)
-            else()
-                message(FATAL_ERROR "Unknown or unsupported host system processor: ${CMAKE_HOST_SYSTEM_PROCESSOR}")
-            endif()
         else()
             message(FATAL_ERROR "Unsupported UNIX platform: '${uname_output}'")
         endif()
@@ -60,7 +54,6 @@ function (set_config_variables)
     else()
         message(FATAL_ERROR "Unsupported processor architecture: '${processor_arch}'")
     endif()
-
 endfunction()
 
 set_config_variables()
