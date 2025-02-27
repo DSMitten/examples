@@ -44,6 +44,7 @@ elseif (PLATFORM_MAC)
     target_sources(${TARGET_NAME}
         PRIVATE
             mac/AppDelegate.mm
+            mac/OSVersion.impl.cpp
             mac/MacPlatformInit.mm
             mac/main.cpp
     )
