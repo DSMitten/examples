@@ -1,0 +1,81 @@
+/*
+  Global styles
+*/
+:root {
+  /* Light to medium gray palette with metallic blue-gray accent */
+  --gray-lightest: #f5f6f5;  /* Very light gray */
+  --gray-light: #d9dbda;     /* Light gray */
+  --gray-medium: #b0b3b5;    /* Medium gray */
+  --gray-dark: #6e7173;      /* Darker gray */
+  --metallic-blue: #d8e8ff;  /* Metallic blue-gray for special sections */
+  --red-red: #ff0000;
+  /* Default theme variables */
+  --backgroundColor: var(--gray-lightest);
+  --textColor: var(--gray-dark);
+  --outputBackgroundColor: var(--metallic-blue);
+}
+
+/*
+  Global & document styles
+*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+html, body, .rootContainer {
+  height: 100%;
+}
+body {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: var(--backgroundColor);
+  color: var(--textColor);
+}
+div.rootContainer {
+  display: flex;
+  flex-direction:column;
+}
+
+/*
+  General control styles
+*/
+span.controlLabel {
+  padding: 3px 10px 3px 10px;
+}
+
+button {
+  width: 140px;
+  padding: 3px 12px 3px 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/*
+  ApiSet control styles
+*/
+div.controlsSet {
+  padding: 10px 5px 10px 5px;
+}
+div.apiSetHeader {
+  font-size: 18px;
+}
+div.apiSetToolbar {
+  display: flex;
+  flex-direction:row;
+  padding: 10px 4px 10px 4px; 
+}
+
+/*
+  Text output styles
+*/
+div.filler {
+  display: flex;
+  flex-direction:column;
+  flex-grow: 1;
+}
+input.result {
+  border: 1px solid black;
+  background-color: var(--outputBackgroundColor);
+}

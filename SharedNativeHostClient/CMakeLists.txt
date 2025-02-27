@@ -12,4 +12,11 @@ include(${CMAKE_CURRENT_LIST_DIR}/dev/make/BuildSettings.cmake)
 # Find external dependencies
 include(${CMAKE_CURRENT_LIST_DIR}/dev/make/External.cmake)
 
+# Find external dependencies
+include(${CMAKE_CURRENT_LIST_DIR}/dev/make/NpmFunctions.cmake)
+
+# Build commands for npm packages
+install_node_modules()
+add_npm_build_target()
+
 add_subdirectory(dev)

@@ -1,0 +1,9 @@
+{
+    "name": "@clientapp/scripts",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Build scripts for use in building @microsoft webview2 hosting packages",
+    "license": "UNLICENSED",
+    "main": "./src/index.js"
+}
+  

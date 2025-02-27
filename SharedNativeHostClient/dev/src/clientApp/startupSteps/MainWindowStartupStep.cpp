@@ -4,10 +4,12 @@
 // Local headers
 #include "CommonMain.h"
 #include "WebHostSystemStartupStep.h"
+#include "InteropObjectsStartupStep.h"
 #include "StartupShutdown.h"
 
 // vcpkg headers
 #include <nativehost/nh-webHost-api/WebHostManager.h>
+#include <nativehost/misc-uri-api/Uri.h>
 
 // STL headers
 #include <array>
@@ -25,6 +27,12 @@ using namespace Microsoft::NativeHost::Startup;
     return StartupThread::UI;
 }
 
+[[nodiscard]] std::span<const std::string_view> MainWindowStartupStep::GetDependencies() const
+{
+    static constexpr std::array c_Dependencies{ InteropObjectsStartupStep::c_Name };
+    return c_Dependencies;
+}
+
 [[nodiscard]] std::span<const std::string_view> MainWindowStartupStep::GetServiceDependencies() const
 {
     static constexpr std::array c_Dependencies{ WellKnownServices::WebHostManager };
@@ -33,15 +41,42 @@ using namespace Microsoft::NativeHost::Startup;
 
 [[nodiscard]] Future<void> MainWindowStartupStep::Start()
 {
-    // Replace with app uri
-    constexpr zxstring_view c_MainWindowUri{ XSTR("http://www.bing.com") };
+#ifdef PLATFORM_WIN
+    const std::filesystem::path c_MainWindowSiteParentDir{ GetCurrentProcessExeDirectoryPath() };
+#elif PLATFORM_MAC
+    const std::filesystem::path c_MainWindowSiteParentDir{ GetCurrentProcessExeDirectoryPath().parent_path() / L"Helpers" };
+#endif
+    xstring c_MainWindowUriPath{ (c_MainWindowSiteParentDir / XSTR("site") / XSTR("index.html")).wstring() };
 
     const MessageSourceValidator sourceValidator =
-        [c_MainWindowUri](xstring_view messageSource, xstring_view /*viewSource*/) -> bool
+        [mainWindowUri = Uri(c_MainWindowUriPath)](xstring_view messageSource, xstring_view /*viewSource*/) -> bool
         {
-            const auto sourcePath = std::filesystem::path(messageSource);
-            const auto mainWindowPath = std::filesystem::path(xstring_view{ c_MainWindowUri });
-            return sourcePath == mainWindowPath;
+            const Uri sourceUri{ messageSource };
+            try
+            {
+                if (sourceUri.Scheme() != mainWindowUri.Scheme())
+                {
+                    return false;
+                }
+                if (sourceUri.Host() != mainWindowUri.Host())
+                {
+                    return false;
+                }
+                if (sourceUri.Port() != mainWindowUri.Port())
+                {
+                    return false;
+                }
+                if (sourceUri.Path() != mainWindowUri.Path())
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (const std::exception& ex)
+            {
+                MessageBoxA(nullptr, ex.what(), ex.what(), MB_OK);
+            }
+            return false;
         };
 
     // clang-format off
@@ -55,7 +90,7 @@ using namespace Microsoft::NativeHost::Startup;
         },
         .NewWebView2Spec
         {
-            .Uri = xstring{ c_MainWindowUri },
+            .Uri = std::move(c_MainWindowUriPath),
             .MessageSourceValidator = sourceValidator
         }
     };

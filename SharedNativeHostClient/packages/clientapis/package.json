@@ -1,0 +1,29 @@
+{
+  "name": "@clientapp/clientapis",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://outlookweb.visualstudio.com/Outlook%20Web/_git/client-native-host"
+  },
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "exports": {
+    ".": "./lib/index.js",
+    "./osversion": "./lib/gen/OSVersion.gen.js"
+  },
+  "devDependencies": {
+    "@clientapp/scripts": "*"
+  },
+  "scripts": {
+    "build": "node ./scripts/build.mjs",
+    "clean": "node ./scripts/clean.mjs"
+  },
+  "dependencies": {
+    "@microsoft/wv2-interop": "^0.12.4"
+  }
+}

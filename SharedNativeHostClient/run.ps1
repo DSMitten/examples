@@ -48,6 +48,7 @@ try{
         if ([System.IO.Directory]::Exists($buildPath)) {
             Remove-Item -Recurse -Force -Path $buildPath
         }
+        npm run clean
     }
 
     # -----------------------------------------------------------------------------

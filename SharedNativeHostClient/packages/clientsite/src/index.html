@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Web-Native Interop</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;,">
+</head>
+
+<body>
+  <div class="rootContainer">
+    <div class="controlsSet" id="filesystemApis">
+      <div class="controlsSetHeader">OS Version API controls</div>
+      <div class="apiSetToolbar">
+        <button id="getOSVersionButton">Get OS Version</button>
+      </div>
+      <div>
+        <span>OS:</span>
+        <input class="result" style="width: 250px" id="osDescriptionText" readonly/>
+        <span>Build:</span>
+        <input class="result" style="width: 150px;" id="osVersionText" readonly/>
+      </div>
+    </div>
+  </div>
+  <script src="./bundle.js"></script>
+</body>
+
+</html>

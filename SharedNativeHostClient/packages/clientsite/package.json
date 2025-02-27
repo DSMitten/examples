@@ -1,0 +1,20 @@
+{
+  "name": "@clientapp/clientsite",
+  "version": "1.0.0",
+  "description": "Test site for use with example 5",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@clientapp/clientapis": "*",
+    "@microsoft/wv2-interop": "*"
+  },
+  "devDependencies": {
+    "@clientapp/scripts": "*",
+    "prettier": "^3.2.5",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.2"
+  },
+  "scripts": {
+    "build": "node ./scripts/build.mjs",
+    "clean": "node ./scripts/clean.mjs"
+  }
+}

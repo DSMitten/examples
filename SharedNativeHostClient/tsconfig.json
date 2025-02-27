@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+      "target": "es2022",
+      "module": "ESNext",
+      "moduleResolution": "Bundler",
+      "declaration": true,
+      "sourceMap": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "allowUnreachableCode": false,
+      "allowUnusedLabels": true,
+      "exactOptionalPropertyTypes": true,
+      "incremental": true,
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitOverride": true,
+      "noImplicitReturns": true,
+      "noPropertyAccessFromIndexSignature": true,
+      "noUncheckedIndexedAccess": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true
+    }
+  }
+  

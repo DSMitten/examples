@@ -15,6 +15,7 @@ target_sources(${TARGET_NAME}
     PRIVATE
         AppDirectories.cpp
         CommonMain.cpp
+        startupSteps/InteropObjectsStartupStep.cpp
         startupSteps/LoggingStartup.cpp
         startupSteps/MainWindowStartupStep.cpp
         startupSteps/PlatformStartupStep.cpp
@@ -32,6 +33,7 @@ target_link_libraries(${TARGET_NAME}
 if (PLATFORM_WIN)
     target_sources(${TARGET_NAME}
         PRIVATE
+            win/OSVersion.impl.cpp
             win/WinMain.cpp
             win/WinPlatformInit.cpp
     )
@@ -59,3 +61,7 @@ elseif (PLATFORM_MAC)
 endif()
 
 add_generate_log_events(${TARGET_NAME})
+
+add_generate_interop(${TARGET_NAME}
+    ${CMAKE_CURRENT_SOURCE_DIR}/OSVersion.nhapi.yaml
+)

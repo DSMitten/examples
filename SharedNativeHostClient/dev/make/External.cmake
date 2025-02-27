@@ -23,13 +23,11 @@ endif()
 
 find_package(SharedNativeHost REQUIRED)
 
-# Add logevents generation functions
-function (find_generateLogEvents_cmake output_var)
-    set(${output_var}  PARENT_SCOPE)
-endfunction()
-
+# Add logevents & interop generation functions
 message(STATUS "WV2HOST_LOG_EVENTS_OUTPUT_DIR: ${CMAKE_BINARY_DIR}/gen/logEvents")
 set(WV2HOST_LOG_EVENTS_OUTPUT_DIR ${CMAKE_BINARY_DIR}/gen/logEvents)
+set(INTEROP_INCLUDE_DIR           ${CMAKE_BINARY_DIR}/gen/interop/include)
+set(INTEROP_HEADERS_DIR           ${INTEROP_INCLUDE_DIR}/nativehost/interop)
 
 include("${VCPKG_INSTALLED_DIR}/${VCPKG_HOST_TRIPLET}/share/ms-wv2host-tools/generateLogEvents.cmake")
 include("${VCPKG_INSTALLED_DIR}/${VCPKG_HOST_TRIPLET}/share/ms-wv2host-tools/generateInterop.cmake")
@@ -42,6 +40,35 @@ function(add_generate_log_events target_name)
 
     target_add_generate_log_events(${target_name}
         NH_LOGGING_DEPS
+            NativeHost::IncludeDirs
+    )
+
+endfunction()
+
+# -----------------------------------------------------------------------------
+# Wrapper for target_generate_interop_files, providing settings used by
+# the webview2-host-framework repo
+# -----------------------------------------------------------------------------
+function(add_generate_interop target_name input_file_paths)
+
+    set(input_file_paths ${input_file_paths} ${ARGN}) # append any overflow arguments into input_file_paths
+
+    target_generate_interop_files(${target_name}
+        OUTPUT_DIR ${INTEROP_HEADERS_DIR}
+        INCLUDE_DIR ${INTEROP_INCLUDE_DIR}
+        FILES ${input_file_paths}
+    )
+
+    get_target_property(targetType ${target_name} TYPE)
+        if (${targetType} STREQUAL "INTERFACE_LIBRARY")
+            set(export_type INTERFACE)
+        else()
+            set(export_type PUBLIC)
+        endif()
+
+    # Connect the target to dependencies that are required by the generated header file
+    target_link_libraries(${target_name}
+        ${export_type}
             NativeHost::IncludeDirs
     )
 

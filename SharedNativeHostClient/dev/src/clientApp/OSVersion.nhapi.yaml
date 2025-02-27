@@ -1,0 +1,23 @@
+scope: allClients
+namespace: ClientApp.Interop
+
+structures:
+ - structure: OSVersionInformation
+   fields: 
+   - field: description
+     type: string
+     desc: A descriptive string representing the operating system, e.g. 'Windows Build 20120'
+   - field: version
+     type: string
+     desc: The version number for the OS build
+   desc: Describes the build of the operating system that the application is running on.
+   stage: prerelease
+   stageDate: 2025-02-26
+
+functions:
+  - function: GetOSVersionInformation
+    desc: Gets a description of the operating system the application is running on
+    returns:
+      type: OSVersionInformation
+    stage: prerelease
+    stageDate: 2025-02-26

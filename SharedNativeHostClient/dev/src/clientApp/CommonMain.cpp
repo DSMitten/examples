@@ -2,6 +2,7 @@
 #include "CommonMain.h"
 
 // Local headers
+#include "startupSteps/InteropObjectsStartupStep.h"
 #include "startupSteps/LoggingStartup.h"
 #include "startupSteps/PlatformStartupStep.h"
 #include "startupSteps/ServicesRegistrarStartupStep.h"
@@ -43,6 +44,7 @@ int CommonMain()
             AddStartupStep<ServicesRegistrarStartupStep>();
             AddStartupStep<TasksSystemStartupStep>();
             AddStartupStep<WebHostSystemStartupStep>();
+            AddStartupStep<InteropObjectsStartupStep>();
             AddStartupStep<MainWindowStartupStep>();
             RunDoStartup();
 

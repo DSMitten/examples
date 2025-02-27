@@ -2,3 +2,6 @@
 /external/nuget/
 /external/vcpkg/
 /.vs/
+packages/*/lib/
+packages/*/site/
+packages/*/src/gen
