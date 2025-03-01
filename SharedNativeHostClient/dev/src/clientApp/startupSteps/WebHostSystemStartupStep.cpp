@@ -32,12 +32,6 @@ using namespace Microsoft::NativeHost::WindowManagement;
     return StartupThread::UI;
 }
 
-[[nodiscard]] std::span<const std::string_view> WebHostSystemStartupStep::GetServiceDependencies() const
-{
-    static constexpr std::array c_Dependencies{ WellKnownServices::Tasks };
-    return c_Dependencies;
-}
-
 [[nodiscard]] std::span<const std::string_view> WebHostSystemStartupStep::GetServicesProvided() const
 {
     static constexpr std::array c_ServicesProvided{ WellKnownServices::WebHostManager };
