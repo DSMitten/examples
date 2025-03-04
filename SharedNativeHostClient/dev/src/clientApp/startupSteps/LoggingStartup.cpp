@@ -52,7 +52,7 @@ void InitializeLogging()
         const std::wstring appName { ToWString(c_AppName) };
         #endif
         const std::chrono::system_clock::time_point currentTime = std::chrono::system_clock::now();
-        const std::filesystem::path logFilePath = std::filesystem::path("/Users/smitten/git/dsmitten/examples/SharedNativeHostClient/build/mac-x64-debug/logs") / GetDateEncodedFilename(appName, std::nullopt, currentTime, L"log", FileNameParams::Date | FileNameParams::Time);
+        const std::filesystem::path logFilePath = GetLogFilesPath() / GetDateEncodedFilename(appName, std::nullopt, currentTime, L"log", FileNameParams::Date | FileNameParams::Time);
         std::unique_ptr<ILogger> spTextFileLogger = MakeTextFileLogger(logFilePath);
         AddLogger(std::move(spTextFileLogger));
     }
