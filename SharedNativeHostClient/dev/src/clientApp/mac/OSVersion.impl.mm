@@ -19,13 +19,13 @@ using namespace Microsoft::NativeHost::Interop;
 
 namespace {
 
-    std::wstring GetOSVersionDescription()
+    std::string GetOSVersionDescription()
     {
         NSProcessInfo *processInfo = [NSProcessInfo processInfo];
         return ToString(processInfo.operatingSystemVersionString);
     }
 
-    std::wstring GetOSVersionNumber()
+    std::string GetOSVersionNumber()
     {
         NSDictionary *systemVersion = [NSDictionary dictionaryWithContentsOfFile:@"/System/Library/CoreServices/SystemVersion.plist"];
         return ToString(systemVersion[@"ProductBuildVersion"]);

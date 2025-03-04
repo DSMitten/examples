@@ -46,35 +46,28 @@ using namespace Microsoft::NativeHost::Startup;
 #elif PLATFORM_MAC
     const std::filesystem::path c_MainWindowSiteParentDir{ GetCurrentProcessExeDirectoryPath().parent_path() / L"Helpers" };
 #endif
-    xstring c_MainWindowUriPath{ (c_MainWindowSiteParentDir / XSTR("site") / XSTR("index.html")).wstring() };
+    xstring c_MainWindowUriPath{ (c_MainWindowSiteParentDir / XSTR("site") / XSTR("index.html")).string() };
 
     const MessageSourceValidator sourceValidator =
         [mainWindowUri = Uri(c_MainWindowUriPath)](xstring_view messageSource, xstring_view /*viewSource*/) -> bool
         {
             const Uri sourceUri{ messageSource };
-            try
+
+            if (sourceUri.Scheme() != mainWindowUri.Scheme())
             {
-                if (sourceUri.Scheme() != mainWindowUri.Scheme())
-                {
-                    return false;
-                }
-                if (sourceUri.Host() != mainWindowUri.Host())
-                {
-                    return false;
-                }
-                if (sourceUri.Port() != mainWindowUri.Port())
-                {
-                    return false;
-                }
-                if (sourceUri.Path() != mainWindowUri.Path())
-                {
-                    return false;
-                }
-                return true;
+                return false;
             }
-            catch (const std::exception& ex)
+            if (sourceUri.Host() != mainWindowUri.Host())
             {
-                MessageBoxA(nullptr, ex.what(), ex.what(), MB_OK);
+                return false;
+            }
+            if (sourceUri.Port() != mainWindowUri.Port())
+            {
+                return false;
+            }
+            if (sourceUri.Path() != mainWindowUri.Path())
+            {
+                return false;
             }
             return false;
         };
