@@ -51,13 +51,13 @@ namespace {
 }
 [[nodiscard]] Future<void> OSVersionImpl::GetOSVersionInformation(std::function<void(ValueOrConstRef<OSVersionInformation>)> writeReturnValue)
 {
-    xstring windowsVersionName = GetOSVersionDescription();
-    xstring windowsVersion = GetOSVersionNumber();
+    xstring osVersionName = GetOSVersionDescription();
+    xstring osVersion = GetOSVersionNumber();
 
     OSVersionInformation versionInfo
     {
-        .description = windowsVersionName,
-        .version = windowsVersion
+        .description = osVersionName,
+        .version = osVersion
     };
     writeReturnValue(versionInfo);
     return MakePresetFuture();

@@ -46,7 +46,7 @@ using namespace Microsoft::NativeHost::Startup;
 #elif PLATFORM_MAC
     const std::filesystem::path c_MainWindowSiteParentDir{ GetCurrentProcessExeDirectoryPath().parent_path() / L"Helpers" };
 #endif
-    xstring c_MainWindowUriPath{ (c_MainWindowSiteParentDir / XSTR("site") / XSTR("index.html")).string() };
+    xstring c_MainWindowUriPath{ XSTR("file://") + (c_MainWindowSiteParentDir / XSTR("site") / XSTR("index.html")).string() };
 
     const MessageSourceValidator sourceValidator =
         [mainWindowUri = Uri(c_MainWindowUriPath)](xstring_view messageSource, xstring_view /*viewSource*/) -> bool
@@ -69,7 +69,8 @@ using namespace Microsoft::NativeHost::Startup;
             {
                 return false;
             }
-            return false;
+
+            return true;
         };
 
     // clang-format off
