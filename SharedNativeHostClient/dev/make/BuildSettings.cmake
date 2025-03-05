@@ -29,18 +29,12 @@ if (PLATFORM_POSIX)
 endif()
 
 if (PLATFORM_MAC)
-    # Enable setting macos rpath
-    # Useful reference: https://www.mikeash.com/pyblog/friday-qa-2009-11-06-linking-and-install-names.html
-    set(CMAKE_MACOSX_RPATH TRUE)
 
     get_macos_llvm_lib_dir(llvm_lib_dir)
     get_macos_llvm_libcpp_dir(llvm_libcpp_dir)
     link_directories(BEFORE ${llvm_lib_dir} ${llvm_libcpp_dir})
 
     get_directory_property(link_dirs LINK_DIRECTORIES)
-
-    list(APPEND CMAKE_INSTALL_RPATH "${llvm_lib_dir}")
-    list(APPEND CMAKE_INSTALL_RPATH "${llvm_libcpp_dir}")
 
     # Link against unwind library, which is necessary for stack traces
     add_link_options(LINKER:-lunwind)

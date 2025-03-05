@@ -31,34 +31,9 @@ target_link_libraries(${TARGET_NAME}
 )
 
 if (PLATFORM_WIN)
-    target_sources(${TARGET_NAME}
-        PRIVATE
-            win/OSVersion.impl.cpp
-            win/WinMain.cpp
-            win/WinPlatformInit.cpp
-    )
-
-    # Support for delay-loading dlls
-    target_link_libraries(${TARGET_NAME} PRIVATE delayimp)
+    include(${CMAKE_CURRENT_LIST_DIR}/win/win.cmake)
 elseif (PLATFORM_MAC)
-    target_sources(${TARGET_NAME}
-        PRIVATE
-            mac/AppDelegate.mm
-            mac/OSVersion.impl.mm
-            mac/MacPlatformInit.mm
-            mac/main.cpp
-    )
-
-    target_link_libraries(${TARGET_NAME}
-        PRIVATE
-            MacOS::AppKit
-            MacOS::Foundation
-    )
-
-    target_compile_definitions(${TARGET_NAME} PRIVATE WEBVIEW2_APP_NAME=\"${WEBVIEW2_APP_NAME}\")
-
-    # RPATH for a bundle should look in the bundle's Frameworks directory
-    set_property(TARGET ${TARGET_NAME} APPEND PROPERTY INSTALL_RPATH "@executable_path/../Frameworks")
+    include(${CMAKE_CURRENT_LIST_DIR}/mac/mac.cmake)
 endif()
 
 add_generate_log_events(${TARGET_NAME})
