@@ -13,17 +13,44 @@ set(SITE_INSTALL_DIR ${CLIENT_APP_HELPERS_DIR})
 function (install_shared_library shared_library_name source_dir)
 
     set(source_path ${source_dir}/${shared_library_name})
-    file(REAL_PATH ${source_path} source_path)
 
-    install(FILES ${source_path} DESTINATION ${CLIENT_APP_FRAMEWORKS_DIR})
+    # source_real_path is the path to the actual file if source_path points to a symlink
+    file(REAL_PATH ${source_path} source_real_path)
+
+    install(FILES ${source_real_path} DESTINATION ${CLIENT_APP_FRAMEWORKS_DIR})
     set(install_name_tool_cmd "
-        execute_process(COMMAND install_name_tool -change ${source_path} @executable_path/../Frameworks/${shared_library_name} ${CLIENT_APP_EXE_PATH} RESULT_VARIABLE result)
-        if (\$\{result\} EQUAL 1)
+        set(destination_path @executable_path/../Frameworks/${shared_library_name})
+        message(STATUS \"executing command: install_name_tool -change ${source_path} \$\{destination_path\} ${CLIENT_APP_EXE_PATH}\")
+        execute_process(COMMAND install_name_tool -change ${source_path} \$\{destination_path\} ${CLIENT_APP_EXE_PATH} RESULT_VARIABLE result)
+        if (NOT \$\{result\} EQUAL 0)
             message(FATAL_ERROR \"install_name_tool failed\")
         endif()
         ")
     install(CODE "${install_name_tool_cmd}")
 
+endfunction()
+
+function (validate_bundle_dependencies)
+    set(validate_cmd "
+        message(STATUS \"executing command: otool -L ${CLIENT_APP_EXE_PATH}\")
+        execute_process(COMMAND otool -L ${CLIENT_APP_EXE_PATH} RESULT_VARIABLE result OUTPUT_VARIABLE output)
+        if (NOT \$\{result\} EQUAL 0)
+            message(FATAL_ERROR \"otool failed\")
+        endif()
+        message(STATUS \"\$\{output\}\\n\\n--------------\\n\")
+        string(STRIP \"\$\{output\}\" output)
+        string(REPLACE \"\\n\" \";\" output_lines \"\$\{output\}\")
+        list(REMOVE_AT output_lines 0)
+        foreach(line \$\{output_lines\})
+            if (NOT line MATCHES \"\\\\s*/usr/lib/\" AND
+                NOT line MATCHES \"\\\\s*/System/\" AND
+                NOT line MATCHES \"\\\\s*@executable_path/\")
+                message(FATAL_ERROR \"Invalid dependency path found in ${CLIENT_APP_NAME}:\\n\$\{line\}\")
+            endif()
+        endforeach()
+        ")
+    install(CODE "${validate_cmd}")
+    
 endfunction()
 
 # Apple bundle contents placement documentation:
@@ -33,6 +60,9 @@ install(TARGETS ${CLIENT_APP_NAME} DESTINATION bin)
 
 install_shared_library(libunwind.1.dylib ${LLVM_LIB_DIR})
 install_shared_library(libc++.1.dylib ${LLVM_LIBCPP_DIR})
+
+# Make sure that all dependencies are either system files or in the bundle
+validate_bundle_dependencies()
 
 # WebView2 framework runtime files
 install(DIRECTORY ${WEBVIEW2_FRAMEWORK_PATH} DESTINATION ${CLIENT_APP_FRAMEWORKS_DIR} PATTERN "Headers" EXCLUDE)
