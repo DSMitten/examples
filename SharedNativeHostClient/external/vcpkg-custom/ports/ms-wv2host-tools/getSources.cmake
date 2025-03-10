@@ -4,7 +4,7 @@ function(get_sources source_path_variable_name)
     vcpkg_from_git(
         OUT_SOURCE_PATH source_path
         URL https://github.com/microsoft/webview2-host-framework
-        REF 8b7b75ce399b2eed9e1bab61bb7778fa6981163e # release v0.11.0
+        REF c96f082fe14638bd260efb5931df3e38615c346d # release v0.12.5
     )
 
     set(${source_path_variable_name} ${source_path} PARENT_SCOPE)

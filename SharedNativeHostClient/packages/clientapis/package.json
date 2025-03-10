@@ -24,6 +24,6 @@
     "clean": "node ./scripts/clean.mjs"
   },
   "dependencies": {
-    "@microsoft/wv2-interop": "^0.12.4"
+    "@microsoft/wv2-interop": "^0.12.5"
   }
 }
