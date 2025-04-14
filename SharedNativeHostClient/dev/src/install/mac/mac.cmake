@@ -12,12 +12,34 @@ set(SITE_INSTALL_DIR ${CLIENT_APP_HELPERS_DIR})
 
 function (install_shared_library shared_library_name source_dir)
 
+    message(STATUS "Creating install rules for shared ilbrary ${shared_library_name}")
+    set(destination_dir ${CMAKE_INSTALL_PREFIX}/${CLIENT_APP_FRAMEWORKS_DIR})
+
     set(source_path ${source_dir}/${shared_library_name})
+    set(destination_path ${destination_dir}/${shared_library_name})
 
     # source_real_path is the path to the actual file if source_path points to a symlink
     file(REAL_PATH ${source_path} source_real_path)
+    cmake_path(GET source_real_path FILENAME shared_library_real_name)
+    set(destination_real_path ${destination_dir}/${shared_library_real_name})
 
     install(FILES ${source_real_path} DESTINATION ${CLIENT_APP_FRAMEWORKS_DIR})
+
+    # Install symlink with the expected name if needed
+    if(NOT "${shared_library_real_name}" STREQUAL "${shared_library_name}")
+        message(VERBOSE "${shared_library_name} is a symlink - adding install rule to create symlink")
+        install(CODE "
+            message(STATUS \"executing command: cmake -E create_symlink \\\"${destination_real_path}\\\" \\\"${destination_path}\\\"\")
+            execute_process(
+                COMMAND \"${CMAKE_COMMAND}\" -E create_symlink
+                        \"${destination_real_path}\"
+                        \"${destination_path}\"
+            )
+            message(STATUS \"Created symlink: ${destination_path} -> ${destination_real_path}\")
+        ")
+    endif()
+
+    # Remap dependency search path in the binary to the relative path to the shared library in the frameworks directory
     set(install_name_tool_cmd "
         set(destination_path @executable_path/../Frameworks/${shared_library_name})
         message(STATUS \"executing command: install_name_tool -change ${source_path} \$\{destination_path\} ${CLIENT_APP_EXE_PATH}\")
@@ -58,14 +80,15 @@ endfunction()
 # Executable
 install(TARGETS ${CLIENT_APP_NAME} DESTINATION bin)
 
-install_shared_library(libunwind.1.dylib ${LLVM_LIB_DIR})
-install_shared_library(libc++.1.dylib ${LLVM_LIBCPP_DIR})
-
-# Make sure that all dependencies are either system files or in the bundle
-validate_bundle_dependencies()
-
 # WebView2 framework runtime files
 install(DIRECTORY ${WEBVIEW2_FRAMEWORK_PATH} DESTINATION ${CLIENT_APP_FRAMEWORKS_DIR} PATTERN "Headers" EXCLUDE)
 
 # WebView2 browser executable app
 install(DIRECTORY ${WEBVIEW2_APP_PATH} DESTINATION ${CLIENT_APP_HELPERS_DIR} USE_SOURCE_PERMISSIONS)
+
+install_shared_library(libunwind.1.dylib ${LLVM_LIB_DIR})
+install_shared_library(libc++.1.dylib ${LLVM_LIBCPP_DIR})
+install_shared_library(libc++abi.1.dylib ${LLVM_LIBCPP_DIR})
+
+# Make sure that all dependencies are either system files or in the bundle
+validate_bundle_dependencies()
